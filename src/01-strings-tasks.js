@@ -211,8 +211,13 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width = 2, height = 2) {
+  if (width < 2 || height < 2) {
+    throw new Error('The minimum values are: width = 2 and height = 2');
+  }
+
+  return `┌${'─'.repeat(width - 2)}┐`.concat('\n') + (`│${' '.repeat(width - 2)}│`).concat('\n').repeat(height - 2)
+  + `└${'─'.repeat(width - 2)}┘`.concat('\n');
 }
 
 
