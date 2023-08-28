@@ -36,7 +36,7 @@ function concatenateStrings(value1, value2) {
  */
 function getStringLength(value) {
   // if (typeof value !== 'string') { //TODO ask Viktor at QA Session about this!
-  //   throw new Error('Not a string was given');
+  // throw new Error('Not a string was given');
   // }
 
   // if (typeof value === 'string') {
@@ -212,7 +212,7 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(/* width, height */) {
-  // throw new Error('Not implemented');
+  throw new Error('Not implemented');
 }
 
 
@@ -233,10 +233,46 @@ function getRectangleString(/* width, height */) {
  *
  */
 function encodeToRot13(str) {
-  // const cipherVocabulary = {
-  //   A: 'N',
+  function iterationThroughAZCharCode(cipherVocabulary = {}) {
+    const result = cipherVocabulary;
+    // charCode(65) = A;
+    // charCode(90) = Z;
+    for (let i = 65; i <= 90; i += 1) {
+      if (i > 90 - 13) {
+        result[String.fromCharCode(i)] = String.fromCharCode(i - 13);
+      } else {
+        result[String.fromCharCode(i)] = String.fromCharCode(i + 13);
+      }
+    }
+  }
 
-  // }
+  function iterationThroughLowerAZCharCode(cipherVocabulary = {}) {
+    const result = cipherVocabulary;
+    // charCode(97) = a;
+    // charCode(122) = z;
+    for (let i = 97; i <= 122; i += 1) {
+      if (i > 122 - 13) {
+        result[String.fromCharCode(i)] = String.fromCharCode(i - 13);
+      } else {
+        result[String.fromCharCode(i)] = String.fromCharCode(i + 13);
+      }
+    }
+  }
+
+  function fillCipherVocabulary(cipherVocabulary = {}) {
+    const result = cipherVocabulary;
+    iterationThroughAZCharCode(result);
+    iterationThroughLowerAZCharCode(result);
+    return result;
+  }
+
+  let cipherVocabulary = {};
+  cipherVocabulary = fillCipherVocabulary(cipherVocabulary);
+
+  return str
+    .split('')
+    .map((letter) => cipherVocabulary[letter] || letter)
+    .join('');
 }
 
 /**
@@ -282,7 +318,7 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(/* value */) {
-  // throw new Error('Not implemented');
+  throw new Error('Not implemented');
 }
 
 
