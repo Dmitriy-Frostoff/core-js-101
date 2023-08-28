@@ -212,7 +212,7 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+  // throw new Error('Not implemented');
 }
 
 
@@ -232,8 +232,11 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  // const cipherVocabulary = {
+  //   A: 'N',
+
+  // }
 }
 
 /**
@@ -279,7 +282,7 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(/* value */) {
-  throw new Error('Not implemented');
+  // throw new Error('Not implemented');
 }
 
 
