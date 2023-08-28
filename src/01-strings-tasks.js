@@ -35,13 +35,10 @@ function concatenateStrings(value1, value2) {
  *   ''      => 0
  */
 function getStringLength(value) {
-  // if (typeof value !== 'string') { //TODO ask Viktor at QA Session about this!
-  // throw new Error('Not a string was given');
-  // }
+  if (typeof value !== 'string') {
+    throw new Error('Not a string was given');
+  }
 
-  // if (typeof value === 'string') {
-  //   return value.length;
-  // }
   return value.length;
 }
 
