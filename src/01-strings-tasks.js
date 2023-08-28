@@ -35,7 +35,7 @@ function concatenateStrings(value1, value2) {
  *   ''      => 0
  */
 function getStringLength(value) {
-  // if (typeof value !== 'string') { //TODO ask Viktor at QASession about this!
+  // if (typeof value !== 'string') { //TODO ask Viktor at QA Session about this!
   //   throw new Error('Not a string was given');
   // }
 
@@ -58,8 +58,8 @@ function getStringLength(value) {
  *   'John','Doe'      => 'Hello, John Doe!'
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
-function getStringFromTemplate(/* firstName, lastName */) {
-  throw new Error('Not implemented');
+function getStringFromTemplate(firstName, lastName) {
+  return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
