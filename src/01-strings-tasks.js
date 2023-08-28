@@ -34,8 +34,15 @@ function concatenateStrings(value1, value2) {
  *   'b'     => 1
  *   ''      => 0
  */
-function getStringLength(/* value */) {
-  throw new Error('Not implemented');
+function getStringLength(value) {
+  // if (typeof value !== 'string') { //TODO ask Viktor at QASession about this!
+  //   throw new Error('Not a string was given');
+  // }
+
+  // if (typeof value === 'string') {
+  //   return value.length;
+  // }
+  return value.length;
 }
 
 /**
