@@ -298,7 +298,7 @@ function propagateItemsByPositionIndex(arr) {
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
 function get3TopItems(arr) {
-  const arrCopy = arr;
+  const arrCopy = arr.slice();
   return arrCopy
     .sort((a, b) => b - a)
     .slice(0, 3);
@@ -318,8 +318,12 @@ function get3TopItems(arr) {
  *   [ null, 1, 'elephant' ] => 1
  *   [ 1, '2' ] => 1
  */
-function getPositivesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getPositivesCount(arr) {
+  const arrCopy = arr.slice();
+  return arrCopy
+    .filter((elem) => (Number.isFinite(elem)))
+    .filter((num) => num > 0)
+    .length;
 }
 
 /**
