@@ -215,8 +215,32 @@ function roundToPowerOfTen(num, pow) {
  *   16 => false
  *   17 => true
  */
-function isPrime(/* n */) {
-  throw new Error('Not implemented');
+function isPrime(n) {
+  function eratosthenesSieve(maxNumber) {
+    const limitOfSearch = maxNumber;
+    const iterableArrOfNumbers = new Array(limitOfSearch)
+      .fill(true)
+      .map((elem, index) => (index === 0 ? elem === false : elem))
+      .map((elem, index) => (index === 1 ? elem === false : elem));
+    const primeNumbersArray = [1];
+
+    for (let i = 2; i < iterableArrOfNumbers.length; i += 1) {
+      if (iterableArrOfNumbers[i] === true) {
+        primeNumbersArray.push(i);
+
+        for (let j = 1; j <= Math.round(iterableArrOfNumbers.length / 2); j += 1) {
+          if (iterableArrOfNumbers[i * j] <= iterableArrOfNumbers.length) {
+            iterableArrOfNumbers[i * j] = false;
+          }
+        }
+      }
+    }
+    return primeNumbersArray;
+  }
+
+  const primeNumbersArray = eratosthenesSieve(10000);
+
+  return primeNumbersArray.includes(n);
 }
 
 /**
