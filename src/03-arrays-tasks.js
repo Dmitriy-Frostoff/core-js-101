@@ -409,8 +409,12 @@ function getFalsyValuesCount(arr) {
  *    [ null, undefined, null ], null => 2
  *    [ true, 0, 1, 'true' ], true => 1
  */
-function findAllOccurrences(/* arr, item */) {
-  throw new Error('Not implemented');
+function findAllOccurrences(arr, item) {
+  const arrCopy = arr.slice();
+
+  return arrCopy
+    .filter((elem) => elem === item)
+    .length;
 }
 
 /**
