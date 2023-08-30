@@ -55,8 +55,15 @@ function getFizzBuzz(num) {
  *   5  => 120
  *   10 => 3628800
  */
-function getFactorial(/* n */) {
-  throw new Error('Not implemented');
+function getFactorial(n) {
+  if (!Number.isFinite(n) || n < 1) {
+    throw new Error('n must be an integer greater than 1');
+  }
+
+  return new Array(n)
+    .fill(1)
+    .map((num, index) => num + index)
+    .reduce((mult, num) => mult * num, 1);
 }
 
 
