@@ -565,8 +565,38 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const arrCopy = array.slice();
+  const arrOfKeys = arrCopy.map(keySelector);
+  const arrOfValues = arrCopy.map(valueSelector);
+
+  const collectionOfKeyAndArrOfValues = arrOfKeys.reduce((resArr, currElem, currElemIndex) => {
+    if (!resArr.find((innerArray) => innerArray.includes(currElem))) {
+      resArr.push([currElem, [arrOfValues[currElemIndex]]]);
+
+      // delete first empty[] helper;
+      if (resArr[0].length === 0) {
+        resArr.shift();
+      }
+    } else {
+      // e.g. resArr = [
+      //     [key0, [value00]],
+      //     [[currentKey], [value10, value11]],
+      //     [key2, [value20, value21, value22]]
+      //   ]
+      const innerArrayWithCurrentKey = resArr.find((elem) => elem.includes(currElem));
+
+      // prevent duplication of values
+      if (!innerArrayWithCurrentKey[1].includes(arrOfValues[currElemIndex])) {
+        // as from example above [value10, value11]
+        innerArrayWithCurrentKey[1].push(arrOfValues[currElemIndex]);
+      }
+    }
+
+    return resArr;
+  }, [[]]);
+
+  return new Map((collectionOfKeyAndArrOfValues));
 }
 
 
