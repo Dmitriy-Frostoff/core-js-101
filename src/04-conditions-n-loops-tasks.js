@@ -380,33 +380,62 @@ function isBracketsBalanced(str) {
     return true;
   }
 
+  const stack = [];
 
-  const pareBracketDictionary = {
-    ']': '[',
-    ')': '(',
-    '}': '{',
-    '>': '<',
-  };
-
-  const closeBracketDictionary = [
-    ']', ')', '}', '>',
-  ];
-
-  if (closeBracketDictionary.includes(str[0])) {
-    return false;
+  function fillStack(stackOfElements = [], strElement) {
+    return stackOfElements.push(strElement);
   }
 
-  const stack = [];
+  function isCurrentBracketClose(strElement) {
+    const closeBracketDictionary = [
+      ']', ')', '}', '>',
+    ];
+
+    let resultOfcheck = false;
+
+    if (closeBracketDictionary.includes(strElement)) {
+      resultOfcheck = true;
+    }
+
+    return resultOfcheck;
+  }
+
+  function isStackTopMatchCurrentCloseBracket(stackOfElements = [], strElement) {
+    const pareBracketDictionary = {
+      ']': '[',
+      ')': '(',
+      '}': '{',
+      '>': '<',
+    };
+
+    let resultOfcheck = false;
+
+    if (stackOfElements.at(-1) === pareBracketDictionary[strElement]) {
+      resultOfcheck = true;
+    }
+
+    return resultOfcheck;
+  }
+
+  function popStackTop(stackOfElements = []) {
+    stackOfElements.pop();
+  }
+
+  if (isCurrentBracketClose(str[0])) {
+    return !isCurrentBracketClose(str[0]);
+  }
 
   for (let i = 0; i < str.length; i += 1) {
     if (stack.length) {
-      if (stack.at(-1) === pareBracketDictionary[str[i]]) {
-        stack.pop();
+      if (isStackTopMatchCurrentCloseBracket(stack, str[i])) {
+        popStackTop(stack, str[i]);
+      } else if (isCurrentBracketClose(str[i])) {
+        return !isCurrentBracketClose(str[i]);
       } else {
-        stack.push(str[i]);
+        fillStack(stack, str[i]);
       }
     } else {
-      stack.push(str[i]);
+      fillStack(stack, str[i]);
     }
   }
 
