@@ -366,8 +366,51 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  if (typeof str !== 'string') {
+    throw new Error('Not a string was given');
+  }
+
+  // TODO ask about ESLint-disable-line!
+  if (str.replace(/[\[\](){}<>]/gi, '').length !== 0) { // eslint-disable-line
+    throw new Error('Unexpected character present. Avaliable charcters are: [],(),{},<>');
+  }
+
+  if (!str.length) {
+    return true;
+  }
+
+
+  const pareBracketDictionary = {
+    ']': '[',
+    ')': '(',
+    '}': '{',
+    '>': '<',
+  };
+
+  const closeBracketDictionary = [
+    ']', ')', '}', '>',
+  ];
+
+  if (closeBracketDictionary.includes(str[0])) {
+    return false;
+  }
+
+  const stack = [];
+
+  for (let i = 0; i < str.length; i += 1) {
+    if (stack.length) {
+      if (stack.at(-1) === pareBracketDictionary[str[i]]) {
+        stack.pop();
+      } else {
+        stack.push(str[i]);
+      }
+    } else {
+      stack.push(str[i]);
+    }
+  }
+
+  return stack.length === 0;
 }
 
 
