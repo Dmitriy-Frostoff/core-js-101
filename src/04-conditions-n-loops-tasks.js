@@ -592,8 +592,106 @@ function getMatrixProduct(m1, m2) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  // TODO fix bug with matrix rows length (in few cases it's less then column length)
+  // TODO  in the tests!!!
+  // if (position.every((matrixRow) => matrixRow.length === position.length)
+  //  && position.length === Math.max(...position.map((matrixRow) => matrixRow.length))) {
+  //   throw new Error('matrix row quantity must be equal to matrix column quantity');
+  // }
+
+  function getMatrixLength(matrix) {
+    const matrixColumnLength = matrix.length;
+    const matrixRowLength = Math.max(...matrix.map((matrixRow) => matrixRow.length));
+
+    return Math.max(matrixColumnLength, matrixRowLength);
+  }
+
+  const matrixLength = getMatrixLength(position);
+
+  function checkMatrixRows(matrix) {
+    for (let i = 0; i < matrixLength; i += 1) {
+      if (matrix[i].length === matrixLength) {
+        if (matrix[i].every((elem) => elem === 'X')) {
+          return 'X';
+        }
+
+        if (matrix[i].every((elem) => elem === '0')) {
+          return '0';
+        }
+      }
+    }
+
+    return undefined;
+  }
+
+  function checkMatrixColumns(matrix) {
+    for (let i = 0; i < matrixLength; i += 1) {
+      const stack = [];
+
+      for (let j = 0; j < matrixLength; j += 1) {
+        stack.push(matrix[j][i]);
+      }
+
+      if (stack.length === matrixLength) {
+        if (stack.every((elem) => elem === 'X')) {
+          return 'X';
+        }
+
+        if (stack.every((elem) => elem === '0')) {
+          return '0';
+        }
+      }
+    }
+
+    return undefined;
+  }
+
+  function checkMatrixMainDiag(matrix) {
+    const stack = [];
+
+    for (let i = 0, j = 0; i < matrixLength, j < matrixLength; i += 1, j += 1) { // eslint-disable-line
+      stack.push(matrix[i][j]);
+    }
+
+    if (stack.length === matrixLength) {
+      if (stack.every((elem) => elem === 'X')) {
+        return 'X';
+      }
+
+      if (stack.every((elem) => elem === '0')) {
+        return '0';
+      }
+    }
+
+    return undefined;
+  }
+
+  function checkMatrixMinorDiag(matrix) {
+    const stack = [];
+
+    for (let i = matrixLength - 1, j = 0; i >= 0, j < matrixLength; i -= 1, j += 1) { // eslint-disable-line
+      stack.push(matrix[i][j]);
+    }
+
+    if (stack.length === matrixLength) {
+      if (stack.every((elem) => elem === 'X')) {
+        return 'X';
+      }
+
+      if (stack.every((elem) => elem === '0')) {
+        return '0';
+      }
+    }
+
+    return undefined;
+  }
+
+  return checkMatrixRows(position)
+    || checkMatrixColumns(position)
+    || checkMatrixMainDiag(position)
+    || checkMatrixMinorDiag(position)
+    || undefined;
 }
 
 
