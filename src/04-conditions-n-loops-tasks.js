@@ -532,8 +532,33 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  if (m1[0].length !== m2.length) {
+    throw new Error('matrix m1 row length must be equal to matrix m2 column length');
+  }
+
+  function createTemplateMatrixOfMultOfMatrixes(matrix1, matrix2) {
+    const resultMatrix = [];
+
+    // never! NEVER!!! USE FILL FOR FILLING ARRAY WITH NEW ARRAY!!! It'll cause trouble,
+    // that all inner arrays, that were filled are simply THE ONE ARRAY!!! (one reference to it);
+    // https://stackoverflow.com/questions/50310615/value-changes-in-all-rows-of-matrix
+    for (let i = 0; i < matrix1.length; i += 1) {
+      resultMatrix.push(new Array(matrix2[0].length).fill(0));
+    }
+
+    return resultMatrix;
+  }
+
+  const resMatrix = createTemplateMatrixOfMultOfMatrixes(m1, m2);
+
+  for (let i = 0; i < m1.length; i += 1) {
+    for (let j = 0; j < m2[0].length; j += 1) {
+      resMatrix[i][j] = m1[i].reduce((sum, elem, index) => sum + elem * m2[index][j], 0);
+    }
+  }
+
+  return resMatrix;
 }
 
 
