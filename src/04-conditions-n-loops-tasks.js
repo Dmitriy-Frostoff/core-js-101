@@ -526,18 +526,13 @@ function getCommonDirectoryPath(pathes) {
       // [a, a, a] => (magic below) => [a]
       commonPath.push(...Array.from(new Set(stack)));
     } else if (commonPath.length) {
-      if (commonPath.filter((pathPart) => pathPart === '/').length === 1) {
-        return commonPath.join('').match(/\//gi).join('');
-      }
-
-      if (commonPath.filter((pathPart) => pathPart === '/').length > 1) {
-        return commonPath.join('').match(/(\/)(\w+\/)+/gi).join('');
-      }
+      return commonPath.join('').match(/(\/)(\w+\/)*/gi).join('');
     } else {
       return '';
     }
   }
-  return 'empty result';
+
+  return commonPath.join('').match(/(\/)(\w+\/)*/gi).join('');
 }
 
 
