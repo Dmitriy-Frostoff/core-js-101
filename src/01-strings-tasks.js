@@ -5,7 +5,6 @@
  *                                                                                           *
  ******************************************************************************************* */
 
-
 /**
  * Returns the result of concatenation of two strings.
  *
@@ -21,7 +20,6 @@
 function concatenateStrings(value1, value2) {
   return value1.concat(value2);
 }
-
 
 /**
  * Returns the length of given string.
@@ -74,7 +72,6 @@ function extractNameFromTemplate(value) {
     .replace(/Hello,\s+/, '')
     .replace(/!$/, '');
 }
-
 
 /**
  * Returns a first char of the given string.
@@ -151,7 +148,6 @@ function unbracketTag(str) {
   return str.replace(/[<>]/g, '');
 }
 
-
 /**
  * Converts all characters of the specified string into the upper case
  *
@@ -216,7 +212,6 @@ function getRectangleString(width = 2, height = 2) {
   return `┌${'─'.repeat(width - 2)}┐`.concat('\n') + (`│${' '.repeat(width - 2)}│`).concat('\n').repeat(height - 2)
   + `└${'─'.repeat(width - 2)}┘`.concat('\n');
 }
-
 
 /**
  * Encode specified string with ROT13 cipher
@@ -293,7 +288,6 @@ function encodeToRot13(str) {
 function isString(value) {
   return typeof value === 'string' || value instanceof String;
 }
-
 
 /**
  * Returns playid card id.
@@ -377,7 +371,6 @@ function getCardId(value) {
 
   return +standard52cardDeckVocabulary[value];
 }
-
 
 module.exports = {
   concatenateStrings,
