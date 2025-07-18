@@ -7,7 +7,6 @@
  *                                                                                           *
  ******************************************************************************************* */
 
-
 /**
  * Returns an area of a rectangle given by width and height.
  *
@@ -20,12 +19,16 @@
  *   5, 5  => 25
  */
 function getRectangleArea(width, height) {
-  if (width < 0 || height < 0 || !Number.isFinite(width) || !Number.isFinite(height)) {
+  if (
+    width < 0
+    || height < 0
+    || !Number.isFinite(width)
+    || !Number.isFinite(height)
+  ) {
     throw new Error('Width and height must be positive numbers');
   }
   return width * height;
 }
-
 
 /**
  * Returns a circumference of circle given by radius.
@@ -76,7 +79,7 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-  return Math.hypot((x2 - x1), (y2 - y1));
+  return Math.hypot(x2 - x1, y2 - y1);
 }
 
 /**
@@ -95,7 +98,6 @@ function getLinearEquationRoot(a, b) {
   // a * x + b = 0 ===> x = -b / a;
   return -b / a;
 }
-
 
 /**
  * Returns an angle (in radians) between two vectors given by xi and yi,
@@ -120,7 +122,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
   // cos Angl = (x1 * x2 + y1 * y2) / (Math.sqrt(x1 ** 2 + y1 ** 2) * Math.sqrt(x2 ** 2 + y2 ** 2))
   // Math.sqrt(x1 ** 2 + y1 ** 2) * Math.sqrt(x2 ** 2 + y2 ** 2)
   // is e.q. multiplication of vectors X and Y lengths
-  const multXY = (x1 * x2 + y1 * y2);
+  const multXY = x1 * x2 + y1 * y2;
   const multLengthXLengthY = Math.hypot(x1, y1) * Math.hypot(x2, y2);
   const cosOfAngle = multXY / multLengthXLengthY;
   const angleBetweenVectorsDeg = Math.acos(cosOfAngle);
@@ -140,9 +142,8 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-  return +(String(value).at(-1));
+  return +String(value).at(-1);
 }
-
 
 /**
  * Returns a number by given string representation.
@@ -175,7 +176,6 @@ function parseNumberFromString(value) {
 function getParallelepipedDiagonal(a, b, c) {
   return Math.sqrt(a ** 2 + b ** 2 + c ** 2);
 }
-
 
 /**
  * Returns the number rounded to specified power of 10.
@@ -228,8 +228,12 @@ function isPrime(n) {
       if (iterableArrOfNumbers[i] === true) {
         primeNumbersArray.push(i);
 
-        for (let j = 1; j <= Math.round(iterableArrOfNumbers.length / 2); j += 1) {
-          if (iterableArrOfNumbers[i * j] <= iterableArrOfNumbers.length) {
+        for (
+          let j = 1;
+          j <= Math.round(iterableArrOfNumbers.length / 2);
+          j += 1
+        ) {
+          if (i * j <= iterableArrOfNumbers.length) {
             iterableArrOfNumbers[i * j] = false;
           }
         }
