@@ -20,10 +20,10 @@
  */
 function getRectangleArea(width, height) {
   if (
-    width < 0
-    || height < 0
-    || !Number.isFinite(width)
-    || !Number.isFinite(height)
+    width < 0 ||
+    height < 0 ||
+    !Number.isFinite(width) ||
+    !Number.isFinite(height)
   ) {
     throw new Error('Width and height must be positive numbers');
   }
@@ -203,7 +203,7 @@ function roundToPowerOfTen(num, pow) {
  * See: https://en.wikipedia.org/wiki/Primality_test
  *
  * @param {number} n
- * @return {bool}
+ * @return {boolean}
  *
  * @example:
  *   4 => false
