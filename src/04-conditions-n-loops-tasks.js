@@ -676,7 +676,6 @@ function evaluateTicTacToePosition(position) {
       i < matrixLength && j < matrixLength;
       i += 1, j += 1
     ) {
-      // eslint-disable-line
       stack.push(matrix[i][j]);
     }
 
@@ -701,7 +700,6 @@ function evaluateTicTacToePosition(position) {
       i >= 0 && j < matrixLength;
       i -= 1, j += 1
     ) {
-      // eslint-disable-line
       stack.push(matrix[i][j]);
     }
 
