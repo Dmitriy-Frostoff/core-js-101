@@ -68,9 +68,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-  return value
-    .replace(/Hello,\s+/, '')
-    .replace(/!$/, '');
+  return value.replace(/Hello,\s+/, '').replace(/!$/, '');
 }
 
 /**
@@ -209,8 +207,11 @@ function getRectangleString(width = 2, height = 2) {
     throw new Error('The minimum values are: width = 2 and height = 2');
   }
 
-  return `┌${'─'.repeat(width - 2)}┐`.concat('\n') + (`│${' '.repeat(width - 2)}│`).concat('\n').repeat(height - 2)
-  + `└${'─'.repeat(width - 2)}┘`.concat('\n');
+  return (
+    `┌${'─'.repeat(width - 2)}┐`.concat('\n') +
+    `│${' '.repeat(width - 2)}│`.concat('\n').repeat(height - 2) +
+    `└${'─'.repeat(width - 2)}┘`.concat('\n')
+  );
 }
 
 /**
