@@ -147,10 +147,12 @@ function isTriangle(a, b, c) {
  *
  */
 function doRectanglesOverlap(rect1, rect2) {
-  return rect1.top + rect1.height >= rect2.top
-  && rect2.top + rect2.height >= rect1.top
-  && rect1.left + rect1.width >= rect2.left
-  && rect2.left + rect2.width >= rect1.left;
+  return (
+    rect1.top + rect1.height >= rect2.top &&
+    rect2.top + rect2.height >= rect1.top &&
+    rect1.left + rect1.width >= rect2.left &&
+    rect2.left + rect2.width >= rect1.left
+  );
 }
 
 /**
@@ -180,7 +182,10 @@ function doRectanglesOverlap(rect1, rect2) {
  *
  */
 function isInsideCircle(circle, point) {
-  return Math.hypot(point.x - circle.center.x, point.y - circle.center.y) < circle.radius;
+  return (
+    Math.hypot(point.x - circle.center.x, point.y - circle.center.y) <
+    circle.radius
+  );
 }
 
 /**
@@ -198,7 +203,10 @@ function findFirstSingleChar(str) {
   const stringWithoutSpaces = str.replace(/\s/gi, '');
   const arrOfQuantityOfLetterRepetitions = stringWithoutSpaces
     .split('')
-    .filter((letter, index, array) => array.filter((elem) => elem === letter).length === 1);
+    .filter(
+      (letter, index, array) =>
+        array.filter((elem) => elem === letter).length === 1
+    );
 
   return arrOfQuantityOfLetterRepetitions[0] || null;
 }
@@ -230,13 +238,13 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
   const maxRangeValue = Math.max(a, b);
 
   switch (true) {
-    case (isStartIncluded && isEndIncluded):
+    case isStartIncluded && isEndIncluded:
       return `[${minRangeValue}, ${maxRangeValue}]`;
-    case (!isStartIncluded && isEndIncluded):
+    case !isStartIncluded && isEndIncluded:
       return `(${minRangeValue}, ${maxRangeValue}]`;
-    case (isStartIncluded && !isEndIncluded):
+    case isStartIncluded && !isEndIncluded:
       return `[${minRangeValue}, ${maxRangeValue})`;
-    case (!isStartIncluded && !isEndIncluded):
+    case !isStartIncluded && !isEndIncluded:
       return `(${minRangeValue}, ${maxRangeValue})`;
     default:
       return 'Unexpected result. Something went wrong(((';
@@ -256,10 +264,7 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-  return str
-    .split('')
-    .reverse()
-    .join('');
+  return str.split('').reverse().join('');
 }
 
 /**
@@ -275,10 +280,7 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-  return Number(String(num)
-    .split('')
-    .reverse()
-    .join(''));
+  return Number(String(num).split('').reverse().join(''));
 }
 
 /**
@@ -384,10 +386,9 @@ function isBracketsBalanced(str) {
     throw new Error('Not a string was given');
   }
 
-  // TODO ask about ESLint-disable-line!
-  if (str.replace(/[\[\](){}<>]/gi, '').length !== 0) { // eslint-disable-line
-    throw new Error('Unexpected character present. Avaliable charcters are: [],(),{},<>');
-  }
+  // @note 'Unexpected characters present in the task.
+  //  Avaliable characters are: [],(),{},<>'
+  // that's why removed that check
 
   if (!str.length) {
     return true;
@@ -395,14 +396,12 @@ function isBracketsBalanced(str) {
 
   const stack = [];
 
-  function fillStack(stackOfElements = [], strElement) {
+  function fillStack(strElement, stackOfElements = []) {
     return stackOfElements.push(strElement);
   }
 
   function isCurrentBracketClose(strElement) {
-    const closeBracketDictionary = [
-      ']', ')', '}', '>',
-    ];
+    const closeBracketDictionary = [']', ')', '}', '>'];
 
     let resultOfcheck = false;
 
@@ -413,7 +412,10 @@ function isBracketsBalanced(str) {
     return resultOfcheck;
   }
 
-  function isStackTopMatchCurrentCloseBracket(stackOfElements = [], strElement) {
+  function isStackTopMatchCurrentCloseBracket(
+    strElement,
+    stackOfElements = []
+  ) {
     const pareBracketDictionary = {
       ']': '[',
       ')': '(',
@@ -440,15 +442,15 @@ function isBracketsBalanced(str) {
 
   for (let i = 0; i < str.length; i += 1) {
     if (stack.length) {
-      if (isStackTopMatchCurrentCloseBracket(stack, str[i])) {
-        popStackTop(stack, str[i]);
+      if (isStackTopMatchCurrentCloseBracket(str[i], stack)) {
+        popStackTop(stack);
       } else if (isCurrentBracketClose(str[i])) {
         return !isCurrentBracketClose(str[i]);
       } else {
-        fillStack(stack, str[i]);
+        fillStack(str[i], stack);
       }
     } else {
-      fillStack(stack, str[i]);
+      fillStack(str[i], stack);
     }
   }
 
@@ -512,13 +514,19 @@ function getCommonDirectoryPath(pathes) {
       // [a, a, a] => (magic below) => [a]
       commonPath.push(...Array.from(new Set(stack)));
     } else if (commonPath.length) {
-      return commonPath.join('').match(/(\/)(\w+\/)*/gi).join('');
+      return commonPath
+        .join('')
+        .match(/(\/)(\w+\/)*/gi)
+        .join('');
     } else {
       return '';
     }
   }
 
-  return commonPath.join('').match(/(\/)(\w+\/)*/gi).join('');
+  return commonPath
+    .join('')
+    .match(/(\/)(\w+\/)*/gi)
+    .join('');
 }
 
 /**
@@ -541,7 +549,9 @@ function getCommonDirectoryPath(pathes) {
  */
 function getMatrixProduct(m1, m2) {
   if (m1[0].length !== m2.length) {
-    throw new Error('matrix m1 row length must be equal to matrix m2 column length');
+    throw new Error(
+      'matrix m1 row length must be equal to matrix m2 column length'
+    );
   }
 
   function createTemplateMatrixOfMultOfMatrixes(matrix1, matrix2) {
@@ -561,7 +571,10 @@ function getMatrixProduct(m1, m2) {
 
   for (let i = 0; i < m1.length; i += 1) {
     for (let j = 0; j < m2[0].length; j += 1) {
-      resMatrix[i][j] = m1[i].reduce((sum, elem, index) => sum + elem * m2[index][j], 0);
+      resMatrix[i][j] = m1[i].reduce(
+        (sum, elem, index) => sum + elem * m2[index][j],
+        0
+      );
     }
   }
 
@@ -608,7 +621,9 @@ function evaluateTicTacToePosition(position) {
 
   function getMatrixLength(matrix) {
     const matrixColumnLength = matrix.length;
-    const matrixRowLength = Math.max(...matrix.map((matrixRow) => matrixRow.length));
+    const matrixRowLength = Math.max(
+      ...matrix.map((matrixRow) => matrixRow.length)
+    );
 
     return Math.max(matrixColumnLength, matrixRowLength);
   }
@@ -656,7 +671,12 @@ function evaluateTicTacToePosition(position) {
   function checkMatrixMainDiag(matrix) {
     const stack = [];
 
-    for (let i = 0, j = 0; i < matrixLength, j < matrixLength; i += 1, j += 1) { // eslint-disable-line
+    for (
+      let i = 0, j = 0;
+      i < matrixLength && j < matrixLength;
+      i += 1, j += 1
+    ) {
+      // eslint-disable-line
       stack.push(matrix[i][j]);
     }
 
@@ -676,7 +696,12 @@ function evaluateTicTacToePosition(position) {
   function checkMatrixMinorDiag(matrix) {
     const stack = [];
 
-    for (let i = matrixLength - 1, j = 0; i >= 0, j < matrixLength; i -= 1, j += 1) { // eslint-disable-line
+    for (
+      let i = matrixLength - 1, j = 0;
+      i >= 0 && j < matrixLength;
+      i -= 1, j += 1
+    ) {
+      // eslint-disable-line
       stack.push(matrix[i][j]);
     }
 
@@ -693,11 +718,13 @@ function evaluateTicTacToePosition(position) {
     return undefined;
   }
 
-  return checkMatrixRows(position)
-    || checkMatrixColumns(position)
-    || checkMatrixMainDiag(position)
-    || checkMatrixMinorDiag(position)
-    || undefined;
+  return (
+    checkMatrixRows(position) ||
+    checkMatrixColumns(position) ||
+    checkMatrixMainDiag(position) ||
+    checkMatrixMinorDiag(position) ||
+    undefined
+  );
 }
 
 module.exports = {
