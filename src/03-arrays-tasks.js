@@ -35,9 +35,7 @@ function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
-  return new Array(len)
-    .fill(1)
-    .map((num, index) => num + index * 2);
+  return new Array(len).fill(1).map((num, index) => num + index * 2);
 }
 
 /**
@@ -115,7 +113,9 @@ function removeFalsyValues(arr) {
  *    [ 'a', 'b', 'c', 'd', 'e', 'f', 'g' ]  => [ 'A', 'B', 'C', 'D', 'E', 'F', 'G' ]
  */
 function getUpperCaseStrings(arr) {
-  return arr.map((elem) => (typeof elem === 'string' ? elem.toUpperCase() : elem));
+  return arr.map((elem) =>
+    typeof elem === 'string' ? elem.toUpperCase() : elem
+  );
 }
 
 /**
@@ -196,9 +196,7 @@ function getTail(arr, n) {
  *    +'30,31,32,33,34'
  */
 function toCsvText(arr) {
-  return arr
-    .map((innerArr) => innerArr.join(','))
-    .join('\n');
+  return arr.map((innerArr) => innerArr.join(',')).join('\n');
 }
 
 /**
@@ -233,9 +231,7 @@ function toArrayOfSquares(arr) {
 function getMovingSum(arr) {
   return arr.map((elem, index, array) => {
     if (Number.isFinite(elem)) {
-      return array
-        .slice(0, index + 1)
-        .reduce((sum, num) => sum + num, 0);
+      return array.slice(0, index + 1).reduce((sum, num) => sum + num, 0);
     }
     return elem;
   });
@@ -271,7 +267,9 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-  const resArr = arr.map((elem, index) => (index > 0 ? new Array(index + 1).fill(elem) : elem));
+  const resArr = arr.map((elem, index) =>
+    index > 0 ? new Array(index + 1).fill(elem) : elem
+  );
   return resArr.flat();
 }
 
@@ -290,9 +288,7 @@ function propagateItemsByPositionIndex(arr) {
  */
 function get3TopItems(arr) {
   const arrCopy = arr.slice();
-  return arrCopy
-    .sort((a, b) => b - a)
-    .slice(0, 3);
+  return arrCopy.sort((a, b) => b - a).slice(0, 3);
 }
 
 /**
@@ -311,9 +307,8 @@ function get3TopItems(arr) {
 function getPositivesCount(arr) {
   const arrCopy = arr.slice();
   return arrCopy
-    .filter((elem) => (Number.isFinite(elem)))
-    .filter((num) => num > 0)
-    .length;
+    .filter((elem) => Number.isFinite(elem))
+    .filter((num) => num > 0).length;
 }
 
 /**
@@ -345,8 +340,11 @@ function sortDigitNamesByNumericOrder(arr) {
     ten: 10,
   };
 
-  return arrCopy
-    .sort((a, b) => digitStrokeRepresentingDictionary[a] - digitStrokeRepresentingDictionary[b]);
+  return arrCopy.sort(
+    (a, b) =>
+      digitStrokeRepresentingDictionary[a] -
+      digitStrokeRepresentingDictionary[b]
+  );
 }
 
 /**
@@ -380,9 +378,7 @@ function getItemsSum(arr) {
 function getFalsyValuesCount(arr) {
   const arrCopy = arr.slice();
 
-  return arrCopy
-    .filter((elem) => Boolean(elem) === false)
-    .length;
+  return arrCopy.filter((elem) => Boolean(elem) === false).length;
 }
 
 /**
@@ -402,9 +398,7 @@ function getFalsyValuesCount(arr) {
 function findAllOccurrences(arr, item) {
   const arrCopy = arr.slice();
 
-  return arrCopy
-    .filter((elem) => elem === item)
-    .length;
+  return arrCopy.filter((elem) => elem === item).length;
 }
 
 /**
@@ -451,14 +445,13 @@ function toStringList(arr) {
 function sortCitiesArray(arr) {
   const arrCopy = arr.slice();
 
-  return arrCopy
-    .sort((obj1, obj2) => {
-      if (obj1.country === obj2.country) {
-        return obj1.city.localeCompare(obj2.city);
-      }
+  return arrCopy.sort((obj1, obj2) => {
+    if (obj1.country === obj2.country) {
+      return obj1.city.localeCompare(obj2.city);
+    }
 
-      return obj1.country.localeCompare(obj2.country);
-    });
+    return obj1.country.localeCompare(obj2.country);
+  });
 }
 
 /**
@@ -480,12 +473,12 @@ function sortCitiesArray(arr) {
  *           [0,0,0,0,1]]
  */
 function getIdentityMatrix(n) {
-  const basicMatrixOfNElems = new Array(n)
-    .fill(new Array(n).fill(0));
+  const basicMatrixOfNElems = new Array(n).fill(new Array(n).fill(0));
 
-  const matrixFilledWithUnitsMainDiagonal = basicMatrixOfNElems
-    .map((subArr, subArrIndex) => subArr
-      .map((num, numIndex) => (numIndex === subArrIndex ? num + 1 : num)));
+  const matrixFilledWithUnitsMainDiagonal = basicMatrixOfNElems.map(
+    (subArr, subArrIndex) =>
+      subArr.map((num, numIndex) => (numIndex === subArrIndex ? num + 1 : num))
+  );
 
   return matrixFilledWithUnitsMainDiagonal;
 }
@@ -559,33 +552,38 @@ function group(array, keySelector, valueSelector) {
   const arrOfKeys = arrCopy.map(keySelector);
   const arrOfValues = arrCopy.map(valueSelector);
 
-  const collectionOfKeyAndArrOfValues = arrOfKeys.reduce((resArr, currElem, currElemIndex) => {
-    if (!resArr.find((innerArray) => innerArray.includes(currElem))) {
-      resArr.push([currElem, [arrOfValues[currElemIndex]]]);
+  const collectionOfKeyAndArrOfValues = arrOfKeys.reduce(
+    (resArr, currElem, currElemIndex) => {
+      if (!resArr.find((innerArray) => innerArray.includes(currElem))) {
+        resArr.push([currElem, [arrOfValues[currElemIndex]]]);
 
-      // delete first empty[] helper;
-      if (resArr[0].length === 0) {
-        resArr.shift();
+        // delete first empty[] helper;
+        if (resArr[0].length === 0) {
+          resArr.shift();
+        }
+      } else {
+        // e.g. resArr = [
+        //     [key0, [value00]],
+        //     [[currentKey], [value10, value11]],
+        //     [key2, [value20, value21, value22]]
+        //   ]
+        const innerArrayWithCurrentKey = resArr.find((elem) =>
+          elem.includes(currElem)
+        );
+
+        // prevent duplication of values
+        if (!innerArrayWithCurrentKey[1].includes(arrOfValues[currElemIndex])) {
+          // as from example above [value10, value11]
+          innerArrayWithCurrentKey[1].push(arrOfValues[currElemIndex]);
+        }
       }
-    } else {
-      // e.g. resArr = [
-      //     [key0, [value00]],
-      //     [[currentKey], [value10, value11]],
-      //     [key2, [value20, value21, value22]]
-      //   ]
-      const innerArrayWithCurrentKey = resArr.find((elem) => elem.includes(currElem));
 
-      // prevent duplication of values
-      if (!innerArrayWithCurrentKey[1].includes(arrOfValues[currElemIndex])) {
-        // as from example above [value10, value11]
-        innerArrayWithCurrentKey[1].push(arrOfValues[currElemIndex]);
-      }
-    }
+      return resArr;
+    },
+    [[]]
+  );
 
-    return resArr;
-  }, [[]]);
-
-  return new Map((collectionOfKeyAndArrOfValues));
+  return new Map(collectionOfKeyAndArrOfValues);
 }
 
 /**
@@ -604,9 +602,7 @@ function group(array, keySelector, valueSelector) {
 function selectMany(arr, childrenSelector) {
   const arrCopy = arr.slice();
 
-  return arrCopy
-    .map(childrenSelector)
-    .flat();
+  return arrCopy.map(childrenSelector).flat();
 }
 
 /**
@@ -652,17 +648,14 @@ function swapHeadAndTail(arr) {
     const rigthPartArr = arrCopy.slice(middleIndex + 1);
     const middleElemArr = arrCopy[middleIndex];
 
-    return rigthPartArr
-      .concat(middleElemArr)
-      .concat(leftPartArr);
+    return rigthPartArr.concat(middleElemArr).concat(leftPartArr);
   }
 
   if (arrCopy.length % 2 === 0) {
     const leftPartArr = arrCopy.slice(0, middleIndex);
     const rigthPartArr = arrCopy.slice(middleIndex);
 
-    return rigthPartArr
-      .concat(leftPartArr);
+    return rigthPartArr.concat(leftPartArr);
   }
   return [];
 }
